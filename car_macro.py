@@ -1,10 +1,8 @@
 from ctypes import pointer
 from tkinter.messagebox import NO
 from unittest.result import failfast
-import keyboard
 
 import pyautogui as pag
-from PIL import ImageGrab
 import time
 
 from email.mime import image
@@ -17,31 +15,28 @@ while True:
     starttime = time.time()
     print('while- start')
 
-    refresh = pag.locateOnScreen('static/stop.jpg', confidence=0.9, grayscale = True)
-    print("refresh object:")
+    refresh = pag.locateCenterOnScreen('static/stop.jpg', confidence=0.9, grayscale = True)
+    print("refresh object")
     print(refresh)
-    start = pag.locateOnScreen('static/start.jpg', confidence =0.9)
-    print("start object:")
+    print('---------')
+    start = pag.locateCenterOnScreen('static/start.jpg', confidence =0.9)
+    print("start object")
     print(start)
-
-    print(pag.position())
-
-    # if keyboard.read_key() == "q":
-    #     quit()
+    print('---------')
 
     if refresh is not None:
         print('if')
-        getPos = pag.center(refresh)
-        pag.moveTo(getPos)
-        pag.click(getPos)
-        pag.hotkey('ctrl', 'r')
-        print('dd')
+        pag.moveTo(refresh)
+        pag.click(refresh)
+        pag.hotkey('command', 'r')
+        print('refresh complete')
+
 
     if start is not None:
-        opt1 = pag.locateCenterOnScreen('static/01.jpg', confidence=0.8, grayscale = True)
+        opt1 = pag.locateCenterOnScreen('static/op1.png')
         print(opt1)
         pag.click(opt1)
-        opt2 = pag.locateCenterOnScreen('static/02.jpg', confidence=0.8, grayscale = True)
+        opt2 = pag.locateCenterOnScreen('static/op2.png')
         print(opt2)
         pag.click(opt2)
         
@@ -50,41 +45,35 @@ while True:
         # pag.click(opt3)
 
 
-        # pag.click(3010, 965)
-        # time.sleep(0.02)
-        # pag.click(3010, 1020)
-        # time.sleep(0.02)
-        # pag.click(3010, 1005)
-        # time.sleep(0.02)
-        # pag.click(3010, 1050)
-
-        slct = pag.locateCenterOnScreen('static/select.jpg', confidence=0.8, grayscale = True)
+        slct = pag.locateCenterOnScreen('static/selectoption.jpg', confidence=0.9, grayscale = True)
         print("slct")
         print(slct)
+
         pag.click(slct[0], slct[1]-10)
-        pag.click(slct[0], slct[1]+25)
-        pag.click(slct[0], slct[1]+10)
-        pag.click(slct[0], slct[1]+60)
 
-        pag.click(pag.center(start))
-
-        fail = pag.locateCenterOnScreen('static/fail.jpg', confidence=0.8, grayscale = True)
-        print("fail:")
-        print(fail)
-        if fail is not None:
-            pag.click(fail[0], fail[1]+30)
+        slct1 = pag.locateCenterOnScreen('static/doichi_motors.png', confidence=0.9, grayscale = True)
+        if slct1 is not None:
+            pag.click(slct1)
         else:
-            break
+            pag.click(slct[0], slct[1]+25)
+        
+        pag.click(slct[0], slct[1]+10)
+        slct2 = pag.locateCenterOnScreen('static/doichi_motors_dachi.png', confidence=0.9, grayscale = True)
+
+        if slct1 is not None:
+            pag.click(slct2)
+        else:
+            pag.click(slct[0], slct[1]+60)
+
+        pag.click(start)
+        break
 
 while True:
-    checkImg = pag.locateOnScreen('static/chap2.jpg', confidence =0.9, grayscale = True)
+    checkImg = pag.locateOnScreen('static/captureok.jpg', confidence =0.9, grayscale = True)
     
 
     if checkImg is not None:
         print('chapture')
-
-        # if keyboard.read_key() == "q":
-        #     quit()
 
         path = "C:/test/capture/" + str(starttime) + ".png"
         qs = pag.locateOnScreen('static/qs.jpg', confidence =0.9, grayscale = True)
@@ -103,17 +92,16 @@ while True:
         
         time.sleep(0.1)
 
-        caps = pag.locateOnScreen('static/chap2.jpg', confidence =0.9, grayscale = True)
+        caps = pag.locateCenterOnScreen('static/captureok.jpg', confidence =0.9, grayscale = True)
         print(text)
         print(caps)
-        pag.click(pag.center(caps))
+        pag.click(caps)
 
         capf = pag.locateOnScreen('static/capf.jpg', confidence =0.9, grayscale = True)
         
         print(capf)
         if capf is not None:
             pag.click((pag.center(capf)[0], pag.center(capf)[1] + 25))
-            time.sleep(0.1)
 
         else:
             last = pag.locateOnScreen('static/lastlast.jpg', confidence =0.9, grayscale = True)
