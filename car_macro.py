@@ -48,22 +48,10 @@ while True:
         print(slct)
 
         pag.click(slct[0], slct[1]-20)
-
-        slct1 = pag.locateCenterOnScreen('static/opop1.png', confidence=0.97, grayscale = True)
-        print(slct1)
-        if slct1 is not None:
-            pag.click(slct1)
-        else:
-            pag.click(slct[0], slct[1]+5)
+        pag.click(slct[0], slct[1]+5)
         
-        pag.click(slct[0], slct[1]+10)
-        slct2 = pag.locateCenterOnScreen('static/opop2.png', confidence=0.97, grayscale = True)
-
-        print(slct2)
-        if slct1 is not None:
-            pag.click(slct2)
-        else:
-            pag.click(slct[0], slct[1]+50)
+        pag.click(slct[0], slct[1]+10)  
+        pag.click(slct[0], slct[1]+50)
 
         pag.click(start)
         break
