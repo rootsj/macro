@@ -1,23 +1,23 @@
 import pyautogui as pag
-from PIL import ImageGrab
 import time
-import keyboard
 import cv2
 import pytesseract
+import os
 
-for i in range(0, 562):
-    path = "./img/" + str(i) + ".png"
+for i in range(0, 100):
+    path = "./img/"
+    filename  = str(i) + ".png"
 
     qs = pag.locateOnScreen('static/qs.jpg', confidence =0.9, grayscale = True)
     x = qs[0] - 200
     y = qs[1] - 3
-    pag.screenshot(path, region=(x, y, 195, 39))
+    pag.screenshot(path + filename, region=(x, y, 195, 39))
     
-    image = cv2.imread(path)
+    image = cv2.imread(path + filename)
     text = pytesseract.image_to_string(image)
 
     pag.click(qs)
-    text[:-1]
+    os.rename(path + filename, path + text[:-1] + ".png")
 
     time.sleep(0.1)
 
