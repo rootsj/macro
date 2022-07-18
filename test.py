@@ -70,7 +70,7 @@ recognizer.training_model.fit_generator(
     validation_steps=validation_steps,
     validation_data=validation_gen,
     callbacks=callbacks,
-    epochs=2,
+    epochs=4,
 )
 print('finish')
 

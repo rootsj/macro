@@ -1,9 +1,30 @@
-model = tf.keras.models.load_model('models/exam_grade_classification_model/model.h5')
+from cProfile import label
+from gc import callbacks
+import os
+import random
+import string
+import math
+import itertools
 
-##########모델 예측
+import numpy as np
+import imgaug
+import matplotlib.pyplot as plt
+import tensorflow as tf
+import sklearn.model_selection
 
-x_test = np.array([
-    [4, 6]
-])
+import keras_ocr
 
-y_predict = model.predict(x_test)
+model = tf.keras.models.load_model('./recognizer_borndigital.h5')
+
+file_path = './after'
+image_fileList = os.listdir(file_path)
+
+i = 0
+for image in image_fileList:
+    i += 1
+    image_path = file_path + '/' + image
+    print(image_path)
+    # predict = model.predict(image_path)
+
+    # print(predict)
+    break
