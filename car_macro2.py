@@ -34,7 +34,8 @@ while True:
 
         else:
             pag.click((pag.center(checkImg)[0]-80, pag.center(checkImg)[1]))
-            pag.typewrite(text[:-1])
+            pag.click((pag.center(checkImg)[0]-80, pag.center(checkImg)[1]))
+            pag.typewrite(text[:-2])
             
             caps = pag.locateCenterOnScreen('static/captureok.png', confidence =0.9, grayscale = True)
             print(text)
