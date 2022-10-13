@@ -27,27 +27,18 @@ while True:
         image = cv2.imread(path)
         text = pytesseract.image_to_string(image)
         
-        if (len(text) > 7 or not text[:-1].isalnum()):
-            qs = pag.locateOnScreen('static/qs.jpg', confidence =0.9, grayscale = True)
-            pag.click(qs)
-            continue
+        pag.click((pag.center(checkImg)[0]-80, pag.center(checkImg)[1]))
+        pag.click((pag.center(checkImg)[0]-80, pag.center(checkImg)[1]))
+        pag.typewrite(text[:-1])
+        
+        pag.click(pag.center(checkImg))
+
+        capf = pag.locateOnScreen('static/capf.jpg', confidence =0.9, grayscale = True)
+        
+        if capf is not None:
+            pag.click((pag.center(capf)[0], pag.center(capf)[1] + 25))
 
         else:
-            pag.click((pag.center(checkImg)[0]-80, pag.center(checkImg)[1]))
-            pag.click((pag.center(checkImg)[0]-80, pag.center(checkImg)[1]))
-            pag.typewrite(text[:-2])
-            
-            caps = pag.locateCenterOnScreen('static/captureok.png', confidence =0.9, grayscale = True)
-            print(text)
-            print(caps)
-            pag.click(caps)
-
-            capf = pag.locateOnScreen('static/capf.jpg', confidence =0.9, grayscale = True)
-            
-            if capf is not None:
-                pag.click((pag.center(capf)[0], pag.center(capf)[1] + 25))
-
-            else:
-                last = pag.locateOnScreen('static/lastlast.jpg', confidence =0.9, grayscale = True)
-                pag.click(pag.center(last)[0]-15, pag.center(last)[1])
-                break
+            last = pag.locateOnScreen('static/lastlast.jpg', confidence =0.9, grayscale = True)
+            pag.click(pag.center(last)[0]-15, pag.center(last)[1])
+            break
